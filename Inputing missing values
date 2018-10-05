@@ -1,0 +1,11 @@
+numMissingValues <- length(which(is.na(activityData$steps)))
+
+activityDataImputed <- activityData
+activityDataImputed$steps <- impute(activityData$steps, fun=mean)
+
+stepsByDayImputed <- tapply(activityDataImputed$steps, activityDataImputed$date, sum)
+qplot(stepsByDayImputed, xlab='Total steps per day (Imputed)', ylab='Frequency using binwith 500', binwidth=500)
+
+stepsByDayMeanImputed <- mean(stepsByDayImputed)
+stepsByDayMedianImputed <- median(stepsByDayImputed)
+
